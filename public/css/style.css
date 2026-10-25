@@ -1,0 +1,29 @@
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  color: #222;
+  background: #fafafa;
+}
+
+.site-header {
+  padding: 1rem;
+  background: #2d3a4a;
+}
+
+.brand {
+  color: #fff;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.site-footer {
+  padding: 1rem;
+  text-align: center;
+  color: #777;
+}

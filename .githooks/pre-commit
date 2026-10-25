@@ -1,0 +1,4 @@
+#!/bin/sh
+# Second gate: a milestone can't be committed until its ai_log.txt entry exists.
+# Enabled once with:  git config core.hooksPath .githooks
+node "$(git rev-parse --show-toplevel)/.claude/hooks/ai-log-gate.js" check || exit 1

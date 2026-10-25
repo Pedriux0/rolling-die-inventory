@@ -1,0 +1,34 @@
+AI LOG — Project #1: The Rolling Die
+Student: Juan Pablo Naranjo
+Tools used: Claude (claude.ai chat) for planning; Claude Code for implementation.
+Raw prompt capture: .claude/prompt_log.jsonl (every Claude Code prompt, recorded
+automatically by a UserPromptSubmit hook, secrets redacted).
+This file is the curated log: one section per milestone, written by me.
+
+Format for each entry:
+  Tool:
+  What I asked / input given:
+  What the AI produced:
+  What I changed, fixed, or verified (and how I tested it):
+
+==========================================================================
+=== Milestone 0: Planning and project setup ===
+--------------------------------------------------------------------------
+Entry 0.1
+  Tool: Claude (claude.ai chat)
+  What I asked / input given: lets make this project assingment we are going to use claude code also lets think this step by step and first lets think in implementations and ideas to complete it
+  What the AI produced: Steps, Architecture , Dabatabase design , Pages , Ideas and Discord Commands
+  What I changed, fixed, or verified: 
+  sqlite3 , mustache-express , and for the claude md tell the to remember me to complete the ai_log.txt changes 
+  before continue to the next step so i can do it and dont forget about it 
+  and make it no optional also analyze this repo : https://gist.github.com/michaelewens/9a1bc5a97f3f9bbb79453e5b682df462 that was on the requirements
+==========================================================================
+=== Milestone 1: Scaffold ===
+--------------------------------------------------------------------------
+Entry 0.2
+  Tool: Claude (claude.ai code)
+  What I asked / input given:Read CLAUDE.md and do Milestone 1 only.
+  What the AI produced: package.json , four npm scripts , folders , app.js , views , env.examples and git hooks
+  What I changed, fixed, or verified: verified that the projects is following the requirements and making use of the constrains and limits of the agent for this tasks , using the port 3000 for local testing and installing the sqlite3 script problem with their fixes 
+
+Input files given to the AI: CLAUDE.md (project rules), assignment description.

@@ -1,0 +1,18 @@
+# Secrets — must never reach git history (the .git folder is submitted)
+.env
+
+# Dependencies
+node_modules/
+
+# Local database (recreate with: npm run init-db)
+*.sqlite
+*.db
+
+# Local hook state (prompt_log.jsonl IS committed as evidence)
+.claude/ai-log-state.json
+.claude/settings.local.json
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
