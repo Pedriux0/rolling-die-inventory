@@ -10,6 +10,7 @@ const requireLogin = require('./middleware/requireLogin');
 const publicController = require('./controllers/publicController');
 const authController = require('./controllers/authController');
 const managerController = require('./controllers/managerController');
+const { startBot } = require('./bot/bot');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -61,3 +62,14 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
   console.log(`The Rolling Die running at http://localhost:${PORT}`);
 });
+
+// Discord bot in the same process. Without a token the website still runs.
+// (Milestone 7 replaces the console log with saving + live dashboard push.)
+if (process.env.BOT_TOKEN) {
+  startBot({
+    token: process.env.BOT_TOKEN,
+    onActivity: async (activity) => console.log('Bot activity:', activity)
+  });
+} else {
+  console.warn('BOT_TOKEN not set: Discord bot not started.');
+}

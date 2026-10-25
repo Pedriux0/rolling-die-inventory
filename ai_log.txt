@@ -103,3 +103,23 @@ What I changed, fixed, or verified: log in as priya, add a game, see it on /game
   ready to explain server-side validation, POST-only mutations,
   Post/Redirect/Get, and why the delete confirm uses data-title
 
+===================================================
+=== Milestone 6: Discord bot ===
+-------------------------------------------------
+Tool: Claude Code
+What I asked / input given: "done with the commit" (started M6), then
+  reported "forgot the manager user, let's create another", then pasted
+  the "deploy-commands failed: Missing Access" error, then confirmed
+  "all tests pass with the 3 commands in discord".
+What the AI produced: gameModel.findByTitle (exact case-insensitive match,
+  then LIKE %term%, max 10); bot/commands.js (/stock, /price, /game with
+  required title option, shared found/list/not_found lookup, markdown
+  escaping); bot/bot.js (Guilds-only client, allowedMentions parse: [],
+  error replies, onActivity callback for Milestone 7);
+  scripts/deploy-commands.js (guild command registration); bot started
+  from app.js (skipped if BOT_TOKEN missing).
+What I changed, fixed, or verified:I saw in Discord before/after editing Catan's stock to check the work of discord bot 
+  i run the 3 commands agints the bot in the discord server , uses the discord devoper page to debug and give a least-privilege bot to the server 
+  check the data that was produced in the Vscode terminal create a new Manager called Juan for testing purposes in the webiste of localhost and in the discord server
+
+

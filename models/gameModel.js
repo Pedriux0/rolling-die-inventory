@@ -47,6 +47,22 @@ async function countByCategory(search = '') {
   );
 }
 
+// Bot lookup, run fresh on every command (no caching):
+// 1. exact title (case-insensitive because the column is COLLATE NOCASE)
+// 2. otherwise every title containing the term, up to `limit` rows.
+async function findByTitle(term, limit = 10) {
+  const exact = await db.get(`SELECT ${COLUMNS} FROM games WHERE title = ?`, [term]);
+  if (exact) return [exact];
+
+  return db.all(
+    `SELECT ${COLUMNS} FROM games
+     WHERE title LIKE ? ESCAPE '\\'
+     ORDER BY title COLLATE NOCASE
+     LIMIT ?`,
+    [likePattern(term), limit]
+  );
+}
+
 async function findById(id) {
   return db.get(`SELECT ${COLUMNS} FROM games WHERE id = ?`, [id]);
 }
@@ -94,5 +110,5 @@ function isDuplicateTitle(err) {
 }
 
 module.exports = {
-  findAll, countByCategory, findById, create, update, remove, isDuplicateTitle
+  findAll, countByCategory, findByTitle, findById, create, update, remove, isDuplicateTitle
 };
