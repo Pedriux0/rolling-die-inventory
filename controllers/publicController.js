@@ -1,11 +1,8 @@
 // Public, read-only inventory page. No login, no edit controls.
 const gameModel = require('../models/gameModel');
+const { toGameView } = require('../helpers/gameView');
 
 const MAX_QUERY_LENGTH = 100;
-const PIP_COUNT = 8; // the players column draws seats 1-8
-
-// Formats 1234.5 as "$1,234.50"
-const money = new Intl.NumberFormat('en-CA', { style: 'currency', currency: 'CAD' });
 
 // Query values can arrive as arrays (?q=a&q=b) or be very long,
 // so accept only a trimmed, length-limited string.
@@ -20,33 +17,6 @@ function gamesLink(search, category) {
   if (category) params.set('category', category);
   const query = params.toString();
   return query ? `/games?${query}` : '/games';
-}
-
-function playersLabel(min, max) {
-  if (!min || !max) return '—';
-  return min === max ? `${min}` : `${min}–${max}`;
-}
-
-// One dot per seat, filled for the player counts the game supports.
-function playerPips(min, max) {
-  if (!min || !max) return [];
-  return Array.from({ length: PIP_COUNT }, (_, i) => ({ on: i + 1 >= min && i + 1 <= max }));
-}
-
-// Mustache is logic-less, so every decision (in stock? which label?)
-// is made here and handed to the view as a ready value.
-function toGameView(game) {
-  return {
-    title: game.title,
-    description: game.description,
-    category: game.category || '—',
-    players: playersLabel(game.min_players, game.max_players),
-    pips: playerPips(game.min_players, game.max_players),
-    playTime: game.play_time_minutes ? `${game.play_time_minutes} min` : '—',
-    price: money.format(game.price),
-    stock: game.stock,
-    inStock: game.stock > 0
-  };
 }
 
 function categoryCards(counts, search, selected) {

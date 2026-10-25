@@ -26,7 +26,7 @@
         {{#currentUser}}
         <a href="/manager">Manager</a>
         <form class="logout" action="/logout" method="post">
-          <button type="submit">Log out {{username}}</button>
+          <button type="submit">Log out<span class="hide-on-phone"> {{username}}</span></button>
         </form>
         {{/currentUser}}
         {{^currentUser}}

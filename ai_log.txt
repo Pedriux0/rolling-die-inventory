@@ -82,3 +82,24 @@ What the AI produced: models/userModel.js, scripts/create-user.js (hidden
   with login/logout links, login form CSS, error handler in app.js.
 What I changed, fixed, or verified: I created some things to check: run npm run create-user -- priya ; log in with a wrong
   password, then the right one; open /manager in a private window and confirm only a $2b$ hash is stored; using bcrypt, session regeneration and ogout is POST
+
+=========================================================================
+=== Milestone 5: Manager CRUD ===
+----------------------------------------------------------------------------------
+Tool: Claude Code
+What I asked / input given: "good lets continue", then "done" after
+  committing Milestone 4 (AI asked me to commit first so milestones
+  don't share a commit).
+What the AI produced: gameModel findById/create/update/remove/
+  isDuplicateTitle; managerController (readForm, validateGame, toGame,
+  list/newForm/create/editForm/update/destroy, flash messages);
+  helpers/gameView.js (shared formatting, moved out of
+  publicController); 6 manager routes + 404 handler in app.js;
+  views manager, game-form, not-found; public/js/confirm-delete.js;
+  CSS for form, actions, flash message, phone layout.
+What I changed, fixed, or verified: log in as priya, add a game, see it on /games in a logged-out
+  window, edit its stock to 0, delete it ,try Cancel on the confirm
+  first , try min players > max players and a negative price be
+  ready to explain server-side validation, POST-only mutations,
+  Post/Redirect/Get, and why the delete confirm uses data-title
+

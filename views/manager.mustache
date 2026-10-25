@@ -1,9 +1,53 @@
 {{> header}}
 <div class="title-row">
   <div>
-    <h1>Manager</h1>
-    <p class="summary">Signed in as {{currentUser.username}}.</p>
+    <h1>Manage games</h1>
+    <p class="summary">{{gameCount}} games in the inventory</p>
   </div>
+  <a class="button" href="/manager/games/new">Add game</a>
 </div>
-<p><a href="/games">View the public games list</a></p>
+
+{{#flash}}<p class="flash" role="status">{{flash}}</p>{{/flash}}
+
+<div class="panel">
+  <table class="games manage">
+    <thead>
+      <tr>
+        <th scope="col">Game</th>
+        <th scope="col">Category</th>
+        <th scope="col">Players</th>
+        <th scope="col" class="num">Price</th>
+        <th scope="col" class="num">Stock</th>
+        <th scope="col"><span class="visually-hidden">Actions</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#games}}
+      <tr>
+        <td class="cell-game"><span class="game-title">{{title}}</span></td>
+        <td class="cell-category">{{category}}</td>
+        <td class="cell-players">{{players}}<span class="visually-hidden"> players</span></td>
+        <td class="num cell-price">{{price}}</td>
+        <td class="num cell-stock">
+          {{#inStock}}{{stock}} in stock{{/inStock}}
+          {{^inStock}}<span class="pill pill-out">Out of stock</span>{{/inStock}}
+        </td>
+        <td class="cell-actions">
+          <a href="/manager/games/{{id}}/edit">Edit<span class="visually-hidden"> {{title}}</span></a>
+          <form class="delete-form" action="/manager/games/{{id}}/delete" method="post" data-title="{{title}}">
+            <button type="submit">Delete<span class="visually-hidden"> {{title}}</span></button>
+          </form>
+        </td>
+      </tr>
+      {{/games}}
+      {{^games}}
+      <tr>
+        <td colspan="6" class="empty">No games yet. <a href="/manager/games/new">Add the first game</a></td>
+      </tr>
+      {{/games}}
+    </tbody>
+  </table>
+</div>
+
+<script src="/js/confirm-delete.js" defer></script>
 {{> footer}}

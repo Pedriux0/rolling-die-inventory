@@ -1,0 +1,65 @@
+{{> header}}
+<div class="form-page">
+  <p class="back"><a href="/manager">Back to all games</a></p>
+  <h1>{{heading}}</h1>
+
+  {{#hasErrors}}
+  <div class="form-error" role="alert">
+    <p>Please fix the following:</p>
+    <ul>
+      {{#errors}}<li>{{.}}</li>{{/errors}}
+    </ul>
+  </div>
+  {{/hasErrors}}
+
+  <form class="panel form game-form" action="{{action}}" method="post">
+    <div class="field wide">
+      <label for="title">Title</label>
+      <input id="title" name="title" value="{{form.title}}" maxlength="100" required>
+    </div>
+
+    <div class="field">
+      <label for="category">Category</label>
+      <input id="category" name="category" value="{{form.category}}" maxlength="40" list="category-list">
+      <datalist id="category-list">
+        {{#categories}}<option value="{{.}}">{{/categories}}
+      </datalist>
+    </div>
+
+    <div class="field">
+      <label for="play_time_minutes">Play time (minutes)</label>
+      <input id="play_time_minutes" name="play_time_minutes" type="number" min="1" max="1440" step="1" value="{{form.play_time_minutes}}" required>
+    </div>
+
+    <div class="field">
+      <label for="min_players">Minimum players</label>
+      <input id="min_players" name="min_players" type="number" min="1" max="99" step="1" value="{{form.min_players}}" required>
+    </div>
+
+    <div class="field">
+      <label for="max_players">Maximum players</label>
+      <input id="max_players" name="max_players" type="number" min="1" max="99" step="1" value="{{form.max_players}}" required>
+    </div>
+
+    <div class="field">
+      <label for="price">Price ($)</label>
+      <input id="price" name="price" type="number" min="0" step="0.01" value="{{form.price}}" required>
+    </div>
+
+    <div class="field">
+      <label for="stock">Copies in stock</label>
+      <input id="stock" name="stock" type="number" min="0" step="1" value="{{form.stock}}" required>
+    </div>
+
+    <div class="field wide">
+      <label for="description">Description</label>
+      <textarea id="description" name="description" rows="3" maxlength="500">{{form.description}}</textarea>
+    </div>
+
+    <div class="form-actions wide">
+      <button type="submit">{{submitLabel}}</button>
+      <a href="/manager">Cancel</a>
+    </div>
+  </form>
+</div>
+{{> footer}}

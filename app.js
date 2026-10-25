@@ -38,8 +38,19 @@ app.post('/login', authController.login);
 app.post('/logout', authController.logout);
 
 // Manager area: everything under /manager requires a logged-in user
+// (mutations are POST only; :id(\\d+) only matches numeric ids)
 app.use('/manager', requireLogin);
-app.get('/manager', managerController.index);
+app.get('/manager', managerController.list);
+app.get('/manager/games/new', managerController.newForm);
+app.post('/manager/games', managerController.create);
+app.get('/manager/games/:id(\\d+)/edit', managerController.editForm);
+app.post('/manager/games/:id(\\d+)', managerController.update);
+app.post('/manager/games/:id(\\d+)/delete', managerController.destroy);
+
+// No route matched (or a controller called next() for a missing game)
+app.use((req, res) => {
+  res.status(404).render('not-found', { title: 'Not found — The Rolling Die' });
+});
 
 // Last resort: log the error, show a generic message (no stack trace)
 app.use((err, req, res, next) => {
