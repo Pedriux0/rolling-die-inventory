@@ -32,3 +32,17 @@ Entry 0.2
   What I changed, fixed, or verified: verified that the projects is following the requirements and making use of the constrains and limits of the agent for this tasks , using the port 3000 for local testing and installing the sqlite3 script problem with their fixes 
 
 Input files given to the AI: CLAUDE.md (project rules), assignment description.
+
+==========================================================================
+=== Milestone 2: Database ===
+--------------------------------------------------------------------------
+Tool: Claude Code
+What I asked / input given: "done" (after committing Milestone 1), i.e.
+  continue to Milestone 2 as defined in CLAUDE.md
+What the AI produced: config/db.js (one shared sqlite3 connection + Promise
+  wrappers run/get/all/close), scripts/init-db.js (games, users, bot_activity
+  tables with CHECK constraints; seeds 15 real games); deleted the
+  config/.gitkeep and scripts/.gitkeep placeholders
+What I changed, fixed, or verified: I have test locally the db initialization and values expeting outputs that were correct 
+  configuring everything and test adding a new skilss in the md file for the agent to imporve the view of the project 
+  checking the localhost to expecte the values that are gonna be produced in the next steps 
