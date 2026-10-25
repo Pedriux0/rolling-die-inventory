@@ -1,0 +1,18 @@
+{{> header}}
+<div class="auth">
+  <h1>Manager login</h1>
+  <p class="summary">For store staff. Customers can browse the <a href="/games">games list</a> without an account.</p>
+
+  {{#error}}<p class="form-error" role="alert">{{error}}</p>{{/error}}
+
+  <form class="panel form" action="/login" method="post">
+    <label for="username">Username</label>
+    <input id="username" name="username" value="{{username}}" autocomplete="username" maxlength="30" required autofocus>
+
+    <label for="password">Password</label>
+    <input id="password" name="password" type="password" autocomplete="current-password" required>
+
+    <button type="submit">Log in</button>
+  </form>
+</div>
+{{> footer}}

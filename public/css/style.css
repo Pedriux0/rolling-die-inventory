@@ -67,13 +67,29 @@ a { color: inherit; }
 
 .brand-mark { color: var(--accent); }
 
-.site-nav a {
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* The logout form's button is styled to match the nav links */
+.site-nav a,
+.logout button {
+  padding: 0;
+  font: inherit;
   font-weight: 500;
   color: var(--muted);
   text-decoration: none;
+  background: none;
+  border: 0;
+  cursor: pointer;
 }
 
-.site-nav a:hover { color: var(--text); }
+.site-nav a:hover,
+.logout button:hover { color: var(--text); }
+
+.logout { margin: 0; }
 
 /* ---------- Title row ---------- */
 .title-row {
@@ -257,6 +273,59 @@ h1 {
 .empty {
   padding: 32px 16px;
   text-align: center;
+}
+
+/* ---------- Forms (login) ---------- */
+.auth {
+  max-width: 400px;
+  margin: 36px auto 0;
+}
+
+.auth .summary { margin-bottom: var(--pad); }
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: var(--pad);
+}
+
+.form label {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.form input {
+  height: 40px;
+  margin-bottom: 10px;
+  padding: 0 12px;
+  font: inherit;
+  font-size: 15px;
+  border: 1px solid var(--control);
+  border-radius: var(--radius-control);
+}
+
+.form button {
+  height: 40px;
+  margin-top: 6px;
+  font: inherit;
+  font-weight: 500;
+  color: #fff;
+  background: var(--accent);
+  border: 0;
+  border-radius: var(--radius-control);
+  cursor: pointer;
+}
+
+.form button:hover { background: #333; }
+.form button:active { transform: translateY(1px); }
+
+.form-error {
+  margin: 0 0 var(--gap);
+  padding: 10px 12px;
+  color: var(--pill-out-ink);
+  background: var(--pill-out-bg);
+  border-radius: var(--radius-control);
 }
 
 .site-footer {

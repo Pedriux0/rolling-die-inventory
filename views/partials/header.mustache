@@ -23,6 +23,15 @@
       </a>
       <nav class="site-nav" aria-label="Main">
         <a href="/games">Games</a>
+        {{#currentUser}}
+        <a href="/manager">Manager</a>
+        <form class="logout" action="/logout" method="post">
+          <button type="submit">Log out {{username}}</button>
+        </form>
+        {{/currentUser}}
+        {{^currentUser}}
+        <a href="/login">Manager login</a>
+        {{/currentUser}}
       </nav>
     </div>
   </header>
