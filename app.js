@@ -5,6 +5,7 @@ require('dotenv').config({ quiet: true });
 const path = require('path');
 const express = require('express');
 const mustacheExpress = require('mustache-express');
+const publicController = require('./controllers/publicController');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -16,10 +17,8 @@ app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Placeholder route, replaced by the public inventory page in Milestone 3
-app.get('/', (req, res) => {
-  res.render('home', { title: 'The Rolling Die' });
-});
+// Public, read-only inventory (no login needed)
+app.get(['/', '/games'], publicController.listGames);
 
 app.listen(PORT, () => {
   console.log(`The Rolling Die running at http://localhost:${PORT}`);

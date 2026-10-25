@@ -46,3 +46,20 @@ What the AI produced: config/db.js (one shared sqlite3 connection + Promise
 What I changed, fixed, or verified: I have test locally the db initialization and values expeting outputs that were correct 
   configuring everything and test adding a new skilss in the md file for the agent to imporve the view of the project 
   checking the localhost to expecte the values that are gonna be produced in the next steps 
+
+=== Milestone 3: Public inventory page ===
+Tool: Claude Code
+
+What I asked / input given: "analyze this project and continue with milestone 3".
+  CLAUDE.md told the AI to use design-taste-frontend + impeccable for UI work
+  and break-ui to stress-test.
+
+What the AI produced: models/gameModel.js (findAll with search + category,
+  countByCategory), controllers/publicController.js (listGames, input
+  cleaning, view formatting, error state), views/games.mustache, rewritten
+  header/footer partials, new public/css/style.css, routes for / and /games
+  in app.js. Removed views/home.mustache. Added .taste-skill/ to .gitignore.
+
+What I changed, fixed, or verified: Testing locally some functions and functionalities such as clicked a category card; search something with no results; confirm no
+  edit/delete buttons; read gameModel.js and be ready to explain why placeholders prevent SQL injection and why % and _ are escaped , 
+  change the CSS with a skill to the model to improve presentation of the project

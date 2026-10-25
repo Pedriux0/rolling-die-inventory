@@ -16,3 +16,6 @@ node_modules/
 .DS_Store
 Thumbs.db
 .vscode/
+
+# Design tool working files
+.taste-skill/

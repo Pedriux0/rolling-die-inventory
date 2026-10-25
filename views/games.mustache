@@ -1,0 +1,76 @@
+{{> header}}
+<div class="title-row">
+  <div>
+    <h1>Games in the store</h1>
+    {{^error}}<p class="summary">{{summary}}</p>{{/error}}
+  </div>
+
+  <form class="search" action="/games" method="get" role="search">
+    <label class="visually-hidden" for="q">Search by title</label>
+    <input id="q" name="q" type="search" value="{{search}}" placeholder="Search by title" maxlength="100">
+    {{#category}}<input type="hidden" name="category" value="{{category}}">{{/category}}
+    <button type="submit">Search</button>
+  </form>
+</div>
+
+{{^error}}
+<nav class="categories" aria-label="Filter by category">
+  {{#categories}}
+  <a class="category{{#selected}} is-selected{{/selected}}" href="{{href}}"{{#selected}} aria-current="page"{{/selected}}>
+    <span class="category-label">{{label}}</span>
+    <span class="category-count">{{count}}</span>
+  </a>
+  {{/categories}}
+</nav>
+
+{{#search}}
+<p class="search-note">Showing titles matching “{{search}}”. <a href="{{clearSearchHref}}">Clear search</a></p>
+{{/search}}
+{{/error}}
+
+<div class="panel">
+  <table class="games">
+    <thead>
+      <tr>
+        <th scope="col">Game</th>
+        <th scope="col">Category</th>
+        <th scope="col">Players</th>
+        <th scope="col" class="num">Play time</th>
+        <th scope="col" class="num">Price</th>
+        <th scope="col" class="num">Stock</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#games}}
+      <tr>
+        <td class="cell-game">
+          <span class="game-title">{{title}}</span>
+          <span class="game-desc">{{description}}</span>
+        </td>
+        <td class="cell-category">{{category}}</td>
+        <td class="cell-players">
+          <span class="players">
+            <span class="pips" aria-hidden="true">{{#pips}}<i class="pip{{#on}} on{{/on}}"></i>{{/pips}}</span>
+            <span>{{players}}<span class="visually-hidden"> players</span></span>
+          </span>
+        </td>
+        <td class="num cell-time">{{playTime}}</td>
+        <td class="num cell-price">{{price}}</td>
+        <td class="num cell-stock">
+          {{#inStock}}{{stock}} in stock{{/inStock}}
+          {{^inStock}}<span class="pill pill-out">Out of stock</span>{{/inStock}}
+        </td>
+      </tr>
+      {{/games}}
+      {{^games}}
+      <tr>
+        <td colspan="6" class="empty">
+          {{#error}}We couldn’t load the games just now. Please refresh the page in a moment.{{/error}}
+          {{^error}}No games match your search. <a href="/games">Show all games</a>{{/error}}
+        </td>
+      </tr>
+      {{/games}}
+    </tbody>
+  </table>
+</div>
+{{> footer}}
