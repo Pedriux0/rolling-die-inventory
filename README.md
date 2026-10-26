@@ -165,7 +165,8 @@ The tables are independent: `bot_activity` stores what was searched for
 
 ## Requirements
 
-- [Node.js](https://nodejs.org/) 18 or newer (tested on 24) and npm
+- [Node.js](https://nodejs.org/) **20.17 or newer** (required by `sqlite3`;
+  tested on 24) and npm. Check with `node --version`.
 - A Discord account and a Discord server where you can add bots
   (a personal test server is fine)
 
@@ -352,14 +353,15 @@ ai_log.txt                  AI usage log (written by the developer)
 
 ## Submitting the project
 
-The zip must include the `.git` folder (commit history) and `ai_log.txt`,
+The zip must be named **`implementation.zip`**. It must include the `.git`
+folder (commit history) and `ai_log.txt`,
 and must **not** include `.env` (it contains the real bot token) or
 `node_modules`.
 
 From the folder that contains `rolling-die/`:
 
 ```bash
-zip -r rolling-die.zip rolling-die \
+zip -r implementation.zip rolling-die \
   -x 'rolling-die/node_modules/*' \
   -x 'rolling-die/.env' \
   -x 'rolling-die/rolling-die.db' \
@@ -369,8 +371,8 @@ zip -r rolling-die.zip rolling-die \
 Then check the result:
 
 ```bash
-unzip -l rolling-die.zip | grep -E '\.git/HEAD|ai_log\.txt'     # both listed
-unzip -l rolling-die.zip | grep -E '\.env$|node_modules'        # nothing listed
+unzip -l implementation.zip | grep -E '\.git/HEAD|ai_log\.txt'  # both listed
+unzip -l implementation.zip | grep -E '\.env$|node_modules'     # nothing listed
 ```
 
 The database is left out on purpose: whoever runs the project recreates it
