@@ -63,6 +63,41 @@ async function findByTitle(term, limit = 10) {
   );
 }
 
+// /find: in-stock games that support `players`, optionally at or under
+// maxPrice. The optional filter adds one fixed SQL fragment; the value
+// still goes in as a placeholder.
+async function findForPlayers(players, maxPrice = null, limit = 20) {
+  const params = [players, players];
+  let priceFilter = '';
+  if (maxPrice !== null) {
+    priceFilter = 'AND price <= ?';
+    params.push(maxPrice);
+  }
+  params.push(limit);
+
+  return db.all(
+    `SELECT ${COLUMNS} FROM games
+     WHERE stock > 0 AND min_players <= ? AND max_players >= ? ${priceFilter}
+     ORDER BY title COLLATE NOCASE
+     LIMIT ?`,
+    params
+  );
+}
+
+// Autocomplete: titles containing the typed text, those that start with
+// it listed first. An empty term matches every title.
+async function suggestTitles(term, limit = 25) {
+  const prefix = term.replace(/[\\%_]/g, (ch) => '\\' + ch) + '%';
+  const rows = await db.all(
+    `SELECT title FROM games
+     WHERE title LIKE ? ESCAPE '\\'
+     ORDER BY CASE WHEN title LIKE ? ESCAPE '\\' THEN 0 ELSE 1 END, title COLLATE NOCASE
+     LIMIT ?`,
+    [likePattern(term), prefix, limit]
+  );
+  return rows.map((row) => row.title);
+}
+
 async function findById(id) {
   return db.get(`SELECT ${COLUMNS} FROM games WHERE id = ?`, [id]);
 }
@@ -110,5 +145,6 @@ function isDuplicateTitle(err) {
 }
 
 module.exports = {
-  findAll, countByCategory, findByTitle, findById, create, update, remove, isDuplicateTitle
+  findAll, countByCategory, findByTitle, findForPlayers, suggestTitles,
+  findById, create, update, remove, isDuplicateTitle
 };

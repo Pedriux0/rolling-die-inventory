@@ -144,3 +144,21 @@ What I changed, fixed, or verified: The test passed all of them checking all the
   the web app is able to fetch the data from the bot activity and display it correct and found and red for the articles that are not found 
   the manage is able to see if the boot is Live in the discord serve and the commands are working
   the logout is working too and the manager tab is doing fine.
+
+================================================
+=== Milestone 8: Extras ===
+
+-------------------------------------------------
+Tool: Claude Code
+What I asked / input given: "git added, lets continue with the 8", then
+  "all the commands have passed the testing".
+What the AI produced: gameModel.findForPlayers (in stock, min <= N <= max,
+  optional price <= ?) and suggestTitles (prefix matches first, max 25);
+  /find command (players required 1-99, max_price optional >= 0);
+  autocomplete on the title option of /stock, /price and /game;
+  commands refactored so each has run(options) -> { args, result,
+  content }; bot.js routes autocomplete to a handler that is never
+  logged or emitted; re-ran deploy-commands (4 commands registered).
+What I changed, fixed, or verified: This last upgrade of the app suggest the user
+  in discord to use a predefined values of the db to improve the speed of the search from a list
+  the testing have been completed following all the methods in the bot.

@@ -1,24 +1,45 @@
 // Creates the Discord client and routes slash commands to bot/commands.js.
-// onActivity(activity) is called after every reply; app.js decides what to
-// do with it (Milestone 7: save to bot_activity and push to the dashboard).
+// onActivity(activity) is called after every command reply; app.js saves
+// it to bot_activity and pushes it to the dashboard.
 const { Client, Events, GatewayIntentBits } = require('discord.js');
-const { runCommand } = require('./commands');
+const { runCommand, titleSuggestions } = require('./commands');
 
 // Never let a reply ping @everyone, @here, users or roles,
 // even if someone searches for "@everyone".
 const NO_PINGS = { parse: [] };
 
+// Suggestions while the user types a title. Fired on every keystroke, so
+// it is deliberately NOT logged or sent to the dashboard.
+async function handleAutocomplete(interaction) {
+  try {
+    const typed = interaction.options.getFocused();
+    await interaction.respond(await titleSuggestions(typed));
+  } catch (err) {
+    console.error('Autocomplete failed:', err.message);
+    await interaction.respond([]).catch(() => {}); // may already have expired
+  }
+}
+
+// "title: catan, players: 4" — used for the log if a command crashes
+function describeOptions(interaction) {
+  return interaction.options.data.map((o) => `${o.name}: ${o.value}`).join(', ');
+}
+
 async function handleInteraction(interaction, onActivity) {
+  if (interaction.isAutocomplete()) return handleAutocomplete(interaction);
   if (!interaction.isChatInputCommand()) return;
 
-  const term = interaction.options.getString('title', true).trim();
   let outcome;
 
   try {
-    outcome = await runCommand(interaction.commandName, term);
+    outcome = await runCommand(interaction.commandName, interaction.options);
   } catch (err) {
     console.error(`/${interaction.commandName} failed:`, err);
-    outcome = { result: 'error', content: 'Sorry, something went wrong looking that up. Please try again.' };
+    outcome = {
+      args: describeOptions(interaction),
+      result: 'error',
+      content: 'Sorry, something went wrong looking that up. Please try again.'
+    };
   }
 
   try {
@@ -30,7 +51,7 @@ async function handleInteraction(interaction, onActivity) {
 
   await onActivity({
     command: interaction.commandName,
-    args: term,
+    args: outcome.args,
     result: outcome.result,
     discordUser: interaction.user.username
   });
