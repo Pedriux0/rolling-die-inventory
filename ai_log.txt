@@ -162,3 +162,32 @@ What the AI produced: gameModel.findForPlayers (in stock, min <= N <= max,
 What I changed, fixed, or verified: This last upgrade of the app suggest the user
   in discord to use a predefined values of the db to improve the speed of the search from a list
   the testing have been completed following all the methods in the bot.
+
+================================================
+=== Milestone 9: README + final test ===
+
+
+-------------------------------------------------
+Tool: Claude Code
+What I asked / input given: "the actual db is fine for now, let's
+  continue with Milestone 9, but make a few changes to the README
+  because we are going to use diagrams in the file too".
+What the AI produced: full README.md (features, bot command table,
+  3 Mermaid diagrams: architecture, website-edit -> Discord ->
+  dashboard sequence, database ER; 7-step setup; usage walkthrough;
+  npm scripts; security summary; known limitations; project
+  structure; troubleshooting; zip instructions); removed
+  bot/.gitkeep.
+What I changed, fixed, or verified: 
+  FINAL CHECKING FOR ALL THE TEST AND INCLUDE DIAGRAMS:
+    - I chose to include diagrams; AI used Mermaid (text in the README,
+        renders on GitHub and in VS Code with an extension, tracked in git).
+    - AI checked the diagrams in a real browser with Mermaid 11: all
+        3 parsed. The first architecture diagram had crossing arrows and an
+        arrow over its title; AI restructured it left to right with the
+        dashboard as its own node.
+    - My local DB has no Catan (deleted while testing in M6); the grader
+      gets it from npm run init-db.
+  -  Troubleshooting section uses real problems from this project
+      (401 Unauthorized, Missing Access/GUILD_ID, Discord caching, template
+      cache, forgotten password).
