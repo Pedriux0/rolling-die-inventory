@@ -1,7 +1,11 @@
-// Manager area (behind requireLogin): list, add, edit and delete games.
-// The live dashboard arrives in Milestone 7.
+// Manager area (behind requireLogin): list, add, edit and delete games,
+// and the live bot activity dashboard.
 const gameModel = require('../models/gameModel');
+const activityModel = require('../models/activityModel');
 const { toGameView } = require('../helpers/gameView');
+const { toActivityView } = require('../helpers/activityView');
+
+const DASHBOARD_ROWS = 25;
 
 const FIELDS = [
   'title', 'category', 'min_players', 'max_players',
@@ -196,4 +200,20 @@ async function destroy(req, res, next) {
   }
 }
 
-module.exports = { list, newForm, create, editForm, update, destroy };
+// Live dashboard: the latest rows from the database now; new ones are
+// pushed over socket.io by public/js/dashboard.js.
+async function dashboard(req, res, next) {
+  try {
+    const activity = (await activityModel.recent(DASHBOARD_ROWS)).map(toActivityView);
+    res.render('dashboard', {
+      title: 'Bot activity — The Rolling Die',
+      activity,
+      maxRows: DASHBOARD_ROWS,
+      notFoundCount: activity.filter((a) => a.notFound).length
+    });
+  } catch (err) {
+    next(err);
+  }
+}
+
+module.exports = { list, newForm, create, editForm, update, destroy, dashboard };

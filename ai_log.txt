@@ -122,4 +122,25 @@ What I changed, fixed, or verified:I saw in Discord before/after editing Catan's
   i run the 3 commands agints the bot in the discord server , uses the discord devoper page to debug and give a least-privilege bot to the server 
   check the data that was produced in the Vscode terminal create a new Manager called Juan for testing purposes in the webiste of localhost and in the discord server
 
+================================================
+=== Milestone 7: Live dashboard ===
 
+-------------------------------------------------
+Tool: Claude Code
+What I asked / input given: "committed, lets continue", then confirmed
+  "the tests have passed, all of them" and explained I deleted Catan in
+  Milestone 6 for testing.
+What the AI produced: models/activityModel.js (create, recent);
+  app.js moved onto an http server shared with socket.io,
+  io.engine.use(sessionMiddleware), sockets with no logged-in user
+  disconnected, logged-in sockets join room "managers",
+  recordActivity saves to bot_activity then emits to "managers" only;
+  logout also disconnects that session's sockets;
+  managerController.dashboard + views/dashboard.mustache (last 25 rows,
+  large layout, not_found rows highlighted, live status, empty state);
+  public/js/dashboard.js (live rows via textContent, keeps 25, counts,
+  local time); helpers/activityView.js; Dashboard link in the header.
+What I changed, fixed, or verified: The test passed all of them checking all the compontest in the localhost 
+  the web app is able to fetch the data from the bot activity and display it correct and found and red for the articles that are not found 
+  the manage is able to see if the boot is Live in the discord serve and the commands are working
+  the logout is working too and the manager tab is doing fine.

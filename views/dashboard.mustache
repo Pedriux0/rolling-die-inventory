@@ -1,0 +1,43 @@
+{{> header}}
+<div class="title-row">
+  <div>
+    <h1>Bot activity</h1>
+    <p class="summary">
+      Recent lookups: <span id="lookup-count">{{activity.length}}</span>
+      · Games we don’t carry: <span id="not-found-count">{{notFoundCount}}</span>
+    </p>
+  </div>
+  <p id="live-status" class="live-status" data-state="waiting" role="status">Connecting…</p>
+</div>
+
+<ol id="feed" class="feed panel" data-max-rows="{{maxRows}}">
+  {{#activity}}
+  <li class="feed-row{{#notFound}} is-not-found{{/notFound}}">
+    <time class="feed-time" datetime="{{time}}">{{time}}</time>
+    <div class="feed-main">
+      <span class="feed-query">{{args}}</span>
+      <span class="feed-meta">{{command}} · {{discordUser}}</span>
+    </div>
+    <span class="pill {{pillClass}}">{{resultLabel}}</span>
+  </li>
+  {{/activity}}
+  <li id="feed-empty" class="feed-empty"{{#activity.length}} hidden{{/activity.length}}>
+    No lookups yet. Try <strong>/stock</strong> in Discord and it will appear here instantly.
+  </li>
+</ol>
+
+<!-- Cloned by dashboard.js for each live event (same markup as above) -->
+<template id="feed-row-template">
+  <li class="feed-row">
+    <time class="feed-time"></time>
+    <div class="feed-main">
+      <span class="feed-query"></span>
+      <span class="feed-meta"></span>
+    </div>
+    <span class="pill"></span>
+  </li>
+</template>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/dashboard.js" defer></script>
+{{> footer}}

@@ -44,6 +44,11 @@ async function login(req, res, next) {
 }
 
 function logout(req, res, next) {
+  // Close this session's dashboard sockets too, or an open tab would
+  // keep receiving live events after logging out.
+  const io = req.app.get('io');
+  if (io) io.in(`session:${req.sessionID}`).disconnectSockets(true);
+
   req.session.destroy((err) => {
     if (err) return next(err);
     res.clearCookie(COOKIE_NAME);

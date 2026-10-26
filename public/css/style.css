@@ -425,6 +425,86 @@ h1 {
 .form-actions button { padding: 0 20px; }
 .form-actions a { color: var(--muted); }
 
+/* ---------- Live dashboard (read from across the counter) ---------- */
+.live-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.live-status::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--control);
+}
+
+.live-status[data-state="live"] { color: var(--text); }
+.live-status[data-state="live"]::before { background: #2e7d32; }
+.live-status[data-state="off"] { color: var(--pill-out-ink); }
+.live-status[data-state="off"]::before { background: var(--pill-out-ink); }
+
+.feed {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.feed-row {
+  display: grid;
+  grid-template-columns: 88px 1fr auto;
+  align-items: center;
+  gap: var(--pad);
+  padding: 18px var(--pad);
+  border-bottom: 1px solid var(--rule);
+}
+
+.feed-row:last-of-type { border-bottom: 0; }
+
+.feed-row.is-not-found { background: #fff5f3; }
+.feed-row.is-not-found .feed-query { color: var(--pill-out-ink); }
+
+.feed-time {
+  font-size: 16px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.feed-main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.feed-query {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.feed-meta {
+  font-size: 14px;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
+.feed .pill { font-size: 14px; padding: 4px 10px; }
+
+.pill-neutral { color: #3d3d3d; background: #eeeeee; }
+.pill-warn { color: #92400e; background: #fffbeb; }
+
+.feed-empty {
+  padding: 40px var(--pad);
+  font-size: 16px;
+  text-align: center;
+}
+
 .site-footer {
   padding-top: 48px;
   padding-bottom: 32px;
@@ -435,7 +515,9 @@ h1 {
 @media (max-width: 640px) {
   :root { --pad: 16px; }
 
-  .site-nav { gap: 14px; }
+  /* Brand on the first row, links on a second row when logged in */
+  .bar { flex-wrap: wrap; height: auto; min-height: 48px; padding-top: 12px; padding-bottom: 8px; row-gap: 8px; }
+  .site-nav { gap: 18px; }
   .site-nav a, .logout button { white-space: nowrap; }
   .hide-on-phone { display: none; }
 
@@ -497,6 +579,17 @@ h1 {
   .cell-actions button { display: inline-block; min-height: 44px; line-height: 44px; }
 
   .title-row .button { align-self: flex-start; height: 44px; }
+
+  .feed-row {
+    grid-template-columns: 1fr auto;
+    grid-template-areas: "main pill" "time time";
+    gap: 6px 12px;
+    padding: 14px var(--pad);
+  }
+  .feed-main { grid-area: main; }
+  .feed .pill { grid-area: pill; }
+  .feed-time { grid-area: time; font-size: 13px; }
+  .feed-query { font-size: 20px; }
   .game-form { grid-template-columns: 1fr; }
   .form input, .form textarea { font-size: 16px; }
 }
